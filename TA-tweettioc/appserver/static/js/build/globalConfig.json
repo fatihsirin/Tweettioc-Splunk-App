@@ -1,0 +1,224 @@
+{
+    "pages": {
+        "configuration": {
+            "tabs": [
+                {
+                    "entity": [
+                        {
+                            "options": {
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "DEBUG", 
+                                        "label": "DEBUG"
+                                    }, 
+                                    {
+                                        "value": "INFO", 
+                                        "label": "INFO"
+                                    }, 
+                                    {
+                                        "value": "WARNING", 
+                                        "label": "WARNING"
+                                    }, 
+                                    {
+                                        "value": "ERROR", 
+                                        "label": "ERROR"
+                                    }, 
+                                    {
+                                        "value": "CRITICAL", 
+                                        "label": "CRITICAL"
+                                    }
+                                ], 
+                                "disableSearch": true
+                            }, 
+                            "defaultValue": "INFO", 
+                            "field": "loglevel", 
+                            "type": "singleSelect", 
+                            "label": "Log level"
+                        }
+                    ], 
+                    "name": "logging", 
+                    "title": "Logging"
+                }
+            ], 
+            "title": "Configuration", 
+            "description": "Set up your add-on"
+        }, 
+        "inputs": {
+            "table": {
+                "header": [
+                    {
+                        "field": "name", 
+                        "label": "Name"
+                    }, 
+                    {
+                        "field": "interval", 
+                        "label": "Interval"
+                    }, 
+                    {
+                        "field": "index", 
+                        "label": "Index"
+                    }, 
+                    {
+                        "field": "disabled", 
+                        "label": "Status"
+                    }
+                ], 
+                "moreInfo": [
+                    {
+                        "field": "name", 
+                        "label": "Name"
+                    }, 
+                    {
+                        "field": "interval", 
+                        "label": "Interval"
+                    }, 
+                    {
+                        "field": "index", 
+                        "label": "Index"
+                    }, 
+                    {
+                        "field": "disabled", 
+                        "label": "Status"
+                    }
+                ], 
+                "actions": [
+                    "edit", 
+                    "enable", 
+                    "delete", 
+                    "clone"
+                ]
+            }, 
+            "services": [
+                {
+                    "entity": [
+                        {
+                            "required": true, 
+                            "help": "Enter a unique name for the data input", 
+                            "field": "name", 
+                            "type": "text", 
+                            "label": "Name", 
+                            "validators": [
+                                {
+                                    "type": "regex", 
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.", 
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                }, 
+                                {
+                                    "maxLength": 100, 
+                                    "type": "string", 
+                                    "errorMsg": "Length of input name should be between 1 and 100", 
+                                    "minLength": 1
+                                }
+                            ]
+                        }, 
+                        {
+                            "required": true, 
+                            "help": "Time interval of input in seconds.", 
+                            "field": "interval", 
+                            "type": "text", 
+                            "label": "Interval", 
+                            "validators": [
+                                {
+                                    "type": "regex", 
+                                    "errorMsg": "Interval must be an integer.", 
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$"
+                                }
+                            ]
+                        }, 
+                        {
+                            "field": "index", 
+                            "required": true, 
+                            "defaultValue": "default", 
+                            "options": {
+                                "blackList": "^_.*$", 
+                                "createSearchChoice": true, 
+                                "endpointUrl": "data/indexes"
+                            }, 
+                            "type": "singleSelect", 
+                            "label": "Index", 
+                            "validators": [
+                                {
+                                    "maxLength": 80, 
+                                    "type": "string", 
+                                    "errorMsg": "Length of index name should be between 1 and 80.", 
+                                    "minLength": 1
+                                }
+                            ]
+                        }
+                    ], 
+                    "name": "tweettioc_back", 
+                    "title": "tweettioc_back"
+                }, 
+                {
+                    "entity": [
+                        {
+                            "required": true, 
+                            "help": "Enter a unique name for the data input", 
+                            "field": "name", 
+                            "type": "text", 
+                            "label": "Name", 
+                            "validators": [
+                                {
+                                    "type": "regex", 
+                                    "errorMsg": "Input Name must start with a letter and followed by alphabetic letters, digits or underscores.", 
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                }, 
+                                {
+                                    "maxLength": 100, 
+                                    "type": "string", 
+                                    "errorMsg": "Length of input name should be between 1 and 100", 
+                                    "minLength": 1
+                                }
+                            ]
+                        }, 
+                        {
+                            "required": true, 
+                            "help": "Time interval of input in seconds.", 
+                            "field": "interval", 
+                            "type": "text", 
+                            "label": "Interval", 
+                            "validators": [
+                                {
+                                    "type": "regex", 
+                                    "errorMsg": "Interval must be an integer.", 
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$"
+                                }
+                            ]
+                        }, 
+                        {
+                            "field": "index", 
+                            "required": true, 
+                            "defaultValue": "default", 
+                            "options": {
+                                "blackList": "^_.*$", 
+                                "createSearchChoice": true, 
+                                "endpointUrl": "data/indexes"
+                            }, 
+                            "type": "singleSelect", 
+                            "label": "Index", 
+                            "validators": [
+                                {
+                                    "maxLength": 80, 
+                                    "type": "string", 
+                                    "errorMsg": "Length of index name should be between 1 and 80.", 
+                                    "minLength": 1
+                                }
+                            ]
+                        }
+                    ], 
+                    "name": "tweettioc", 
+                    "title": "tweettioc"
+                }
+            ], 
+            "title": "Inputs", 
+            "description": "Manage your data inputs"
+        }
+    }, 
+    "meta": {
+        "apiVersion": "3.0.0", 
+        "version": "1.0.0", 
+        "displayName": "Tweettioc", 
+        "name": "TA-tweettioc", 
+        "restRoot": "TA_tweettioc"
+    }
+}

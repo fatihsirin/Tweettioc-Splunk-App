@@ -1,0 +1,79 @@
+[props/source%3A%3A...ta-tweettioc%2A.log%2A]
+owner = admin
+version = 7.3.0
+modtime = 1575122895.686650200
+
+[props/source%3A%3A...ta_tweettioc%2A.log%2A]
+owner = admin
+version = 7.3.0
+modtime = 1575122895.884662700
+
+[inputs/tweettioc%3A%2F%2Ftweettioc]
+owner = admin
+version = 7.3.0
+modtime = 1575543737.309787400
+
+[props/tweettioc]
+owner = admin
+version = 7.3.0
+modtime = 1575123956.936388000
+
+[app/install/state]
+version = 7.3.0
+modtime = 1575124599.172181200
+
+[app/ui]
+version = 7.3.0
+modtime = 1575124687.827268700
+
+[app/launcher]
+version = 7.3.0
+modtime = 1575124687.833217900
+
+[app/package/check_for_updates]
+version = 7.3.0
+modtime = 1575124687.837203700
+
+[]
+access = read : [ * ], write : [ * ]
+export = system
+version = 7.3.0
+modtime = 1575126135.565923000
+
+[props/iochunter]
+owner = admin
+version = 7.3.0
+modtime = 1575127438.537682500
+
+[inputs/tweettioc_back%3A%2F%2Ftweetioc_back]
+owner = admin
+version = 7.3.0
+modtime = 1576410133.038295000
+
+[props/tweettioc_back]
+owner = admin
+version = 7.3.0
+modtime = 1575390435.400696700
+
+[views/dashboard]
+version = 7.3.0
+modtime = 1576410495.335376000
+
+[views/Dashboard]
+version = 8.0.3
+modtime = 1598179116.571799200
+
+[views/IOCs]
+version = 8.0.3
+modtime = 1598179055.343328800
+
+[app/install/install_source_checksum]
+version = 8.0.3
+modtime = 1598115923.744869100
+
+[savedsearches/Twitter%20IOC%20Create%20Lookup%20File]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = admin
+version = 8.0.3
+modtime = 1598175179.019497000

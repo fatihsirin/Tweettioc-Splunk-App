@@ -1,0 +1,7 @@
+<nav search_view="search" color="#3c6188">
+<view name="Dashboard" default="true" />
+<view name="IOCs" />
+<view name="search" label="Search"/>
+</nav>
+
+

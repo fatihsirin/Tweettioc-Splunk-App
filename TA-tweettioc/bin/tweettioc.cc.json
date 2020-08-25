@@ -1,0 +1,77 @@
+{
+    "tokens": [
+        "__settings__.logging.loglevel"
+    ], 
+    "requests": [
+        {
+            "pre_process": {
+                "skip_conditions": [], 
+                "pipeline": []
+            }, 
+            "request": {
+                "method": "GET", 
+                "url": "http://www.tweettioc.com/v1/tweets/daily/full/", 
+                "headers": {}
+            }, 
+            "post_process": {
+                "skip_conditions": [
+                    {
+                        "method": "json_empty", 
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ]
+                    }
+                ], 
+                "pipeline": [
+                    {
+                        "method": "json_path", 
+                        "output": "__stdout__", 
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ]
+                    }, 
+                    {
+                        "method": "splunk_xml", 
+                        "output": "__stdout__", 
+                        "input": [
+                            "{{__stdout__}}", 
+                            "", 
+                            "{{index}}", 
+                            "{{host}}", 
+                            "{{source}}", 
+                            "{{sourcetype}}"
+                        ]
+                    }, 
+                    {
+                        "method": "std_output", 
+                        "input": [
+                            "{{__stdout__}}"
+                        ]
+                    }
+                ]
+            }, 
+            "iteration_mode": {
+                "stop_conditions": [
+                    {
+                        "method": "json_empty", 
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ]
+                    }
+                ], 
+                "iteration_count": "1"
+            }
+        }
+    ], 
+    "global_settings": {
+        "logging": {
+            "level": "{{__settings__.logging.loglevel}}"
+        }
+    }, 
+    "meta": {
+        "apiVersion": "1.0.0"
+    }
+}

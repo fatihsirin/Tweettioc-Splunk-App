@@ -1,0 +1,157 @@
+<dashboard theme="dark">
+  <label>IOCs</label>
+  <description>Last IOCs</description>
+  <row>
+    <panel>
+      <title>MD5</title>
+      <table>
+        <search>
+          <query>index=twitter  md5="*"
+| dedup id
+| mvexpand md5
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,md5
+| sort - date 
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>SHA256</title>
+      <table>
+        <search>
+          <query>index=twitter sha256="*"
+| dedup id
+| mvexpand sha256
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,sha256
+| sort - date
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>MAIL</title>
+      <table>
+        <search>
+          <query>index=twitter mail="*"
+| dedup id
+| mvexpand mail
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,mail
+| sort - date
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>SHA1</title>
+      <table>
+        <search>
+          <query>index=twitter sha1="*"
+| dedup id
+| mvexpand sha1
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,sha1
+| sort - date
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>IP</title>
+      <table>
+        <search>
+          <query>index=twitter ip="*"
+| dedup id
+| mvexpand ip
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,ip
+| sort - date
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+    <panel>
+      <title>DOMAIN</title>
+      <table>
+        <search>
+          <query>index=twitter domain="*" 
+| dedup id 
+| mvexpand domain 
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d 
+| table date ,domain 
+| sort - date 
+| head 100</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>URL</title>
+      <table>
+        <search>
+          <query>index=twitter url="*"
+| dedup id 
+| mvexpand url 
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d
+| table date ,url
+| sort - date</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="count">10</option>
+        <option name="drilldown">row</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

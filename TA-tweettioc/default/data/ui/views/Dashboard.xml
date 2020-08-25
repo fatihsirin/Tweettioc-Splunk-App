@@ -1,0 +1,143 @@
+<dashboard theme="dark">
+  <label>Dashboard</label>
+  <row>
+    <panel>
+      <title>Daily Tweet</title>
+      <chart>
+        <title>Daily Tweet</title>
+        <search>
+          <query>index=twitter 
+| dedup id
+| eval date=strftime(timestamp,"%F") 
+| bin _time span=1d 
+| stats count as dailycount by date 
+| sort - date 
+| head 7 
+| sort date</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">1</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>IOC Counts</title>
+      <chart>
+        <search>
+          <query>index=twitter 
+| dedup id
+| fields md5,sha1,sha256,mail,ip,domain,url
+| stats count(*) as * 
+| addtotals fieldname=total 
+| chart sum(*) as * by total</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.text">IOC TYPES</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.showDataLabels">all</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">top</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Daily Hashtags</title>
+      <chart>
+        <title>Daily Hashtags</title>
+        <search>
+          <query>index=twitter 
+| dedup id 
+| eval yesterday=strftime(relative_time(now(), "-1d@d"), "%F") 
+| eval date=strftime(timestamp,"%F") 
+| where like(date,yesterday) 
+| eval hashtags=lower(hashtags)
+| mvexpand hashtags
+| search NOT hashtags IN ("#malware","#cyber","#security","#virustotal","#threatintel","#cybersecurity") 
+| stats count by hashtags 
+| sort - count 
+| table hashtags,count</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.legend.placement">right</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.size">large</option>
+        <option name="trellis.splitBy">_aggregation</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>All Hashtags</title>
+      <chart>
+        <search>
+          <query>index=twitter 
+| dedup id 
+| mvexpand hashtags
+| search NOT hashtags IN ("#malware","#cyber","#security","#virustotal","#threatintel","#cybersecurity") 
+| eval hashtags=lower(hashtags) 
+| stats count by hashtags 
+| sort - count 
+| table hashtags,count</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Last Tweets</title>
+      <table>
+        <title>Last Tweets</title>
+        <search>
+          <query>index=twitter 
+| dedup id
+| eval date=strftime(timestamp,"%F") 
+| sort - date 
+| table date, user, tweet, link</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">row</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">true</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+        <drilldown>
+          <link target="_blank">search?q=index=twitter%20%20%20%0A%7C%20rename%20tweet.timestamp%20as%20date%20%20%20%20%20%20%20%0A%7C%20rename%20tweet.hashtags%7B%7D%20as%20hashtags%20%0A%7C%20rename%20tweet.tweet%20as%20tweet%0A%7C%20eval%20date=strftime(date,%22%25F%22)%20%0A%7C%20sort%20-%20date%20%7C%20table%20date,%20tweet%20%7Chead%2010&amp;earliest=-24h@h&amp;latest=now</link>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+</dashboard>

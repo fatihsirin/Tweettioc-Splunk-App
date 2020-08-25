@@ -1,0 +1,77 @@
+{
+    "meta": {
+        "apiVersion": "1.0.0"
+    }, 
+    "global_settings": {
+        "logging": {
+            "level": "{{__settings__.logging.loglevel}}"
+        }
+    }, 
+    "tokens": [
+        "__settings__.logging.loglevel"
+    ], 
+    "requests": [
+        {
+            "post_process": {
+                "pipeline": [
+                    {
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ], 
+                        "output": "__stdout__", 
+                        "method": "json_path"
+                    }, 
+                    {
+                        "input": [
+                            "{{__stdout__}}", 
+                            "", 
+                            "{{index}}", 
+                            "{{host}}", 
+                            "{{source}}", 
+                            "{{sourcetype}}"
+                        ], 
+                        "output": "__stdout__", 
+                        "method": "splunk_xml"
+                    }, 
+                    {
+                        "input": [
+                            "{{__stdout__}}"
+                        ], 
+                        "method": "std_output"
+                    }
+                ], 
+                "skip_conditions": [
+                    {
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ], 
+                        "method": "json_empty"
+                    }
+                ]
+            }, 
+            "iteration_mode": {
+                "iteration_count": "1", 
+                "stop_conditions": [
+                    {
+                        "input": [
+                            "{{__response__.body}}", 
+                            "$.$.[*]"
+                        ], 
+                        "method": "json_empty"
+                    }
+                ]
+            }, 
+            "pre_process": {
+                "pipeline": [], 
+                "skip_conditions": []
+            }, 
+            "request": {
+                "headers": {}, 
+                "url": "http://tweettioc.com/79e3bd285f128ef857b1dd2c290a3fddfde1aa8050af86390abc9045b3472342/splunk", 
+                "method": "GET"
+            }
+        }
+    ]
+}
